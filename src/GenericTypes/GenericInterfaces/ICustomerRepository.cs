@@ -1,26 +1,69 @@
-﻿namespace GenericTypes;
+﻿using System.Diagnostics.Contracts;
 
-public class Customer
+namespace GenericTypes;
+
+
+public abstract class Base
 {
-    public int CustomerId { get; set; }
-    public required string Name { get; set; }
+  
 }
 
-public class User
+public abstract class BaseEntity : Base
 {
-    public int UserId { get; set; }
-    public required string FirstName { get; set; }
+    public int Id { get; set; }
+}
+
+public class Customer : BaseEntity
+{   
+    public string Name { get; set; }
+
+    public Customer(string name)
+    {
+        
+    }
+
+}
+
+public class User : BaseEntity
+{
+    public string FirstName { get; set; }
     public required string LastName { get; set; }
     public string? Email { get; set; }
 }
 
-public interface ICustomerRepository
+public class Address : Base
 {
-    IEnumerable<Customer> GetAllCustomers();
-    Customer GetCustomer(int id);
-    void AddCustomer(Customer customer);
-    void UpdateCustomer(Customer customer);
-    void RemoveCustomer(Customer customer);
+    public string Street { get; set; }
+    public string City { get; set; }
 }
 
-// TODO: Add IUserRepository
+public class Product : BaseEntity
+{
+    public string Name { get; set; }
+    public string Color { get; set; }
+}
+
+// Szablon interfejsu (Interfejs generyczny)
+public interface IEntityRepository<TEntity>
+    where TEntity : class
+{
+    IEnumerable<TEntity> GetAll();
+    TEntity Get(int id);
+    void Add(TEntity entity);
+    void Update(TEntity entity);
+    void Remove(TEntity entity);
+}
+
+public interface ICustomerRepository : IEntityRepository<Customer>
+{
+}
+
+public interface IUserRepository : IEntityRepository<User>
+{
+
+}
+
+public interface IProductRepository : IEntityRepository<Product>
+{
+    IEnumerable<Product> GetByColor(string color);
+}
