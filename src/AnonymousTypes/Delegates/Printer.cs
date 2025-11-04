@@ -2,11 +2,26 @@
 
 public class Printer
 {
+    public delegate void LogDelegate(string message); // sygnatura metody
+    public LogDelegate Log { get; set; }
+
+
     public void Print(string content, byte copies = 1)
     {
+     //   var delegates = Log.GetInvocationList();
+
         for (int copy = 0; copy < copies; copy++)
         {
             // TODO: Log to Console and/or to LogFile
+            //if (Log != null)
+            //{
+            //    Log.Invoke($"[{DateTime.Now}] Printing {content} copy #{copy}");
+            //}
+
+         
+             Log?.Invoke($"[{DateTime.Now}] Printing {content} copy #{copy}");
+           
+
             Console.WriteLine($"{DateTime.Now} Printing {content} copy #{copy}");
         }
 
