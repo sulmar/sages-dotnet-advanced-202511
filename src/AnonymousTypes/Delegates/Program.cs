@@ -28,9 +28,9 @@ printer.Log = null;
 printer.Print("Hello Poland!");
 
 
-static void Finish(int copies)
+static void Finish(object sender, PrintedEventArgs args)
 {
-    Console.WriteLine($"Wydrukowano {copies} kopii.");
+    Console.WriteLine($"Wydrukowano {args.Copies} kopii.");
 }
 
 static void LogToConsole(string message)

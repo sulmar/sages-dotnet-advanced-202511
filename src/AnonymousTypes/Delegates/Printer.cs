@@ -13,17 +13,14 @@ public class PrintedEventArgs : EventArgs
 
 public class Printer
 {
-    public delegate void LogDelegate(string message); // sygnatura metody
-    public LogDelegate Log;
+    public Action<string> Log;  // void Method()
 
-    public delegate decimal CalculateCostDelegate(int copies, decimal cost);
-    public CalculateCostDelegate CalculateCost;
+    public Func<int, decimal, decimal> CalculateCost; // T Method();
 
     // public delegate void PrintedDelegate();
    // public delegate void PrintedDelegate(int copies);
-    public delegate void PrintedDelegate(object sender, PrintedEventArgs args);
-    public event PrintedDelegate Printed;
-
+  //  public delegate void PrintedDelegate(object sender, PrintedEventArgs args);
+    public event EventHandler<PrintedEventArgs> Printed;
 
     public void Print(string content, byte copies = 1)
     {
