@@ -2,7 +2,17 @@
 
 #region Models
 
-public class Customer
+public abstract class Base
+{
+
+}
+
+public abstract class BaseEntity : Base
+{
+    public int Id { get; set; }
+}
+
+public class Customer : BaseEntity
 {
     public int CustomerId { get; set; }
     public required string Name { get; set; }
@@ -13,7 +23,7 @@ public class Customer
     }
 }
 
-public class Account
+public class Account : BaseEntity
 {
     public int AccountId { get; set; }
     public required string Number { get; set; }
@@ -35,7 +45,7 @@ public class InMemoryCustomerRepository
         _customers = customers.ToDictionary(p => p.CustomerId);
     }
 
-    public void AddCustomer(Customer customer)
+    public void Add(Customer customer)
     {
         var id = _customers.Max(p => p.Key);
 
@@ -44,17 +54,54 @@ public class InMemoryCustomerRepository
         _customers.Add(customer.CustomerId, customer);
     }
 
-    public Customer GetCustomer(int id)
+    public Customer Get(int id)
     {
         return _customers[id];
     }
 
 
-    public IEnumerable<Customer> GetAllCustomers()
+    public IEnumerable<Customer> GetAll()
     {
         return _customers.Values;
     }
 }
 
+// Szablon klasy (Klasa generyczny)
+public class InMemoryEntityRepository<TEntity>
+        where TEntity : BaseEntity
+{
+    private readonly IDictionary<int, TEntity> _entities;
 
-// TODO: Create InMemoryAccountRepository
+    public InMemoryEntityRepository(IEnumerable<TEntity> entities)
+    {
+        _entities = entities.ToDictionary(p => p.Id);
+    }
+
+    public void Add(TEntity entity)
+    {
+        var id = _entities.Max(p => p.Key);
+
+        entity.Id = ++id;
+
+        _entities.Add(entity.Id, entity);
+    }
+
+    public TEntity Get(int id)
+    {
+        return _entities[id];
+    }
+
+
+    public IEnumerable<TEntity> GetAll()
+    {
+        return _entities.Values;
+    }
+}
+
+
+public class InMemoryAccountRepository : InMemoryEntityRepository<Account>
+{
+    public InMemoryAccountRepository(IEnumerable<Account> entities) : base(entities)
+    {
+    }
+}
