@@ -9,10 +9,13 @@ printer.Log = LogToConsole;
 printer.Log += LogToFile;
 printer.Log += LogToDb;
 printer.Log += LogToWindow;
+printer.Printed += Finish;
 
 printer.Log += System.Console.WriteLine;
 
 printer.CalculateCost = DiscountCalculateCost;
+
+printer.Log.Invoke("HACK!");
 
 
 printer.Print("Hello World!", 3);
@@ -25,6 +28,10 @@ printer.Log = null;
 printer.Print("Hello Poland!");
 
 
+static void Finish(int copies)
+{
+    Console.WriteLine($"Wydrukowano {copies} kopii.");
+}
 
 static void LogToConsole(string message)
 {
