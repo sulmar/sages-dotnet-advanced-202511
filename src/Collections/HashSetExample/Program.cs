@@ -22,7 +22,7 @@ static void TrackingServiceTest()
     
     foreach (string ipAddress in ipAddresses)
     {
-        trackingService.TrackIP(ipAddress);
+        trackingService.Request(ipAddress);
     }
 
     var uniqueIPs = trackingService.GetUniqueIPs();
