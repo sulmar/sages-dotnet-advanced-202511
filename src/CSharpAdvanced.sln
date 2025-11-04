@@ -87,6 +87,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksExample", "Asynchronou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncAwaitExample", "AsynchronousProgramming\AsyncAwaitExample\AsyncAwaitExample.csproj", "{72890450-B623-4BE2-81C0-71CD07F514D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ExtensionMethods\ConsoleApp\ConsoleApp.csproj", "{B95A246B-5ED3-4B7C-BD2F-F1A9065CFAFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -221,6 +223,10 @@ Global
 		{72890450-B623-4BE2-81C0-71CD07F514D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72890450-B623-4BE2-81C0-71CD07F514D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72890450-B623-4BE2-81C0-71CD07F514D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B95A246B-5ED3-4B7C-BD2F-F1A9065CFAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B95A246B-5ED3-4B7C-BD2F-F1A9065CFAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B95A246B-5ED3-4B7C-BD2F-F1A9065CFAFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B95A246B-5ED3-4B7C-BD2F-F1A9065CFAFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -258,6 +264,7 @@ Global
 		{C5C67FD4-2D9C-49D9-B025-E19B576AE3AB} = {E3844A4A-A013-4A54-9FB3-F13B2B126DD0}
 		{07F378E5-9E18-428A-98DC-C53011085CCE} = {E3844A4A-A013-4A54-9FB3-F13B2B126DD0}
 		{72890450-B623-4BE2-81C0-71CD07F514D1} = {E3844A4A-A013-4A54-9FB3-F13B2B126DD0}
+		{B95A246B-5ED3-4B7C-BD2F-F1A9065CFAFB} = {77740BB7-64AF-4DA8-A4A0-5942554FBF96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2E7DE6E-B21A-4995-A942-00FB34E40D6F}
