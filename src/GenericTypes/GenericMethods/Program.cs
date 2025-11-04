@@ -11,5 +11,9 @@ ListHelper.Dump(numbers);
 // Przykład użycia z listą napisów
 List<string> words = new List<string> { "C#", "Java", "Python", "JavaScript" };
 Console.WriteLine("\nZawartość listy napisów:");
-ListHelper.Dump(words);
+ListHelper.Dump<string>(words);
+
+
+var customer = Factory.Create<Customer>();
+
 
