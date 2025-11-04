@@ -2,16 +2,22 @@
 
 class SupportTicketService
 {
+    private Queue<Ticket> _queue;
+
     public void SubmitTicket(Ticket ticket)
     {
-        throw new NotImplementedException();
+        _queue.Enqueue(ticket);
 
         Console.WriteLine($"New ticket submitted: {ticket}");
     }
 
     public Ticket ProcessTicket()
     {
-        throw new NotImplementedException();        
+        Ticket ticket = _queue.Dequeue();
+
+        Ticket peekTicket = _queue.Peek(); 
+
+        return ticket;
     }
 
     public IEnumerable<Ticket> GetOpenedTickets()
