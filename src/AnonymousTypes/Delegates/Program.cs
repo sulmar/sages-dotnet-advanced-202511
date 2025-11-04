@@ -8,7 +8,13 @@ var printer = new Printer();
 printer.Log = LogToConsole;
 printer.Log += LogToFile;
 printer.Log += LogToDb;
-printer.Log += LogToWindow;
+printer.Log += delegate(string message) // Metoda anonimowa
+{
+    Console.WriteLine($"WINDOW: {message}");
+};
+
+printer.Log += message => Console.WriteLine($"WINDOW: {message}"); // Wyrazenie lambda;
+
 printer.Printed += Finish;
 
 printer.Log += System.Console.WriteLine;
@@ -46,11 +52,6 @@ static void LogToFile(string message)
 static void LogToDb(string message)
 {
     Console.WriteLine($"SQL: INSERT INTO Logs {message}");
-}
-
-static void LogToWindow(string message)
-{
-    Console.WriteLine($"WINDOW: {message}");
 }
 
 static decimal StandardCalculateCost(int copies, decimal cost)
