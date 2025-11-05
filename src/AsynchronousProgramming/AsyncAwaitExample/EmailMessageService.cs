@@ -9,6 +9,11 @@ namespace AsyncAwaitExample;
 
 internal class EmailMessageService
 {
+    public Task SendTask(string to, string content)
+    {
+        return Task.Run(()=>Send(to, content)); 
+    }
+
     public void Send(string to, string content = "")
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
