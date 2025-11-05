@@ -7,6 +7,7 @@ Console.WriteLine("Hello, Task!");
 Console.WriteLine("Started".DumpThreadId());
 
 TaxCalculator calculator = new TaxCalculator();
+EmailMessageService service = new EmailMessageService();
 
 // Operacje synchroniczne
 //var tax1 = calculator.Calculate("John", 1000);
@@ -22,8 +23,6 @@ var taxTask1 = calculator.CalculateTask("John", 1000);
 var taxTask2 = calculator.CalculateTask("Kate", 2000);
 
 var totalTask = Task.WhenAll(taxTask1, taxTask2);
-
-EmailMessageService service = new EmailMessageService();
 
 totalTask.ContinueWith(
     t => service.Send("john@domain.com", $"Total Tax: {taxTask1.Result + taxTask2.Result}"));
