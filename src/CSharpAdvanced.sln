@@ -57,8 +57,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaDataExample", "Reflecti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetSetExample", "Reflection\GetSetExample\GetSetExample.csproj", "{112E1CCB-2A01-4524-AFEF-81F1690C66C8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Threading", "Threading", "{3B6B2077-5B7B-4FCE-B052-EFB796776B2C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExtensionMethod", "ExtensionMethod", "{77740BB7-64AF-4DA8-A4A0-5942554FBF96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AsynchronousProgramming", "AsynchronousProgramming", "{E3844A4A-A013-4A54-9FB3-F13B2B126DD0}"

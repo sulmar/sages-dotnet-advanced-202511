@@ -24,6 +24,8 @@ printer.CalculateCost = DiscountCalculateCost;
 printer.Log.Invoke("HACK!");
 
 
+
+
 printer.Print("Hello World!", 3);
 
 printer.Log -= LogToDb;
