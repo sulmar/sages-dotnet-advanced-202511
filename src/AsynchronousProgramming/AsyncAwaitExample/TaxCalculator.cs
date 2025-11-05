@@ -49,4 +49,20 @@ internal class TaxCalculator
 
         return tax;
     }
+
+
+    public decimal CalculateDiscount(decimal tax)
+    {
+        return tax * 0.1m;
+    }
+
+    public Task<decimal> CalculateDiscountAsync(decimal tax)
+    {
+        // zla praktyka (dla krotkotrwalych operacji)
+        // return Task.Run(() => CalculateDiscount(tax));
+
+        // dobra praktyka
+        // return Task.FromResult(100m);
+        return Task.FromResult(CalculateDiscount(tax));
+    }
 }

@@ -12,11 +12,11 @@ TaxService taxService = new TaxService();
 // taxService.Calculate();
 
 // Operacje asynchroniczne
-var t1 = taxService.CalculateTask1();
+var t1 = taxService.CalculateAsync();
 
-var t2 = taxService.CalculateTask1();
+var t2 = taxService.CalculateAsync();
 
-var t3 = taxService.CalculateTask1();
+var t3 = taxService.CalculateAsync();
 
 await Task.WhenAll(t1, t2, t3);
 
