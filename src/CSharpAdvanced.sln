@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcurrentDictionaryExample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcurrentQueueExample", "ThreadSafeCollections\ConcurrentQueueExample\ConcurrentQueueExample.csproj", "{BCB6B572-9F77-46C8-BD20-D7CF84E71994}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AnonymousTypes", "AnonymousTypes", "{95526590-7F4E-4E8F-A1AA-FC29318B0D1C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AnonymousMethods", "AnonymousMethods", "{95526590-7F4E-4E8F-A1AA-FC29318B0D1C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delegates", "AnonymousTypes\Delegates\Delegates.csproj", "{BB02ABF0-0488-4357-80B3-D9F9BEF5B3FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delegates", "AnonymousMethods\Delegates\Delegates.csproj", "{BB02ABF0-0488-4357-80B3-D9F9BEF5B3FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MethodChaining", "MethodChaining", "{A65DB4CB-FB97-40D9-B644-D78AE8DBE4D5}"
 EndProject
