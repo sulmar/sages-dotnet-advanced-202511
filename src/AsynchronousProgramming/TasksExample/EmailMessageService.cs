@@ -9,11 +9,11 @@ namespace TasksExample;
 
 internal class EmailMessageService
 {
-    public void Send(string to)
+    public void Send(string to, string content = "")
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
 
-        Console.WriteLine($"Sending message to {to}...".DumpThreadId());
+        Console.WriteLine($"Sending message {content} to {to}...".DumpThreadId());
         File.AppendAllText($"log-{to}.txt", $"Sending message to {to}...".DumpThreadId());
 
         // TODO: Simulate delay from 1 to 3 s. 

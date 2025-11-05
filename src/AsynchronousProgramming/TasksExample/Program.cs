@@ -6,7 +6,18 @@ Console.WriteLine("Hello, Task!");
 
 Console.WriteLine("Started".DumpThreadId());
 
+TaxCalculator calculator = new TaxCalculator();
+
+var tax1 = calculator.Calculate("John", 1000);
+var tax2 = calculator.Calculate("Kate", 2000);
+var total = tax1 + tax2;
+
 EmailMessageService service = new EmailMessageService();
+Task sendTask = Task.Run(() => service.Send("john@domain.com", $"Total Tax: {total}"));
+
+
+
+Console.ReadLine();
 
 //Task task1 = new Task(() => service.Send("john@domain.com"));
 //Task task2 = new Task(() => service.Send("john@domain.com"));
