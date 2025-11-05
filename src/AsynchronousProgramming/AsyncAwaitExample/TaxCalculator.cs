@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,9 @@ internal class TaxCalculator
     const decimal TaxRate = 0.2m; // 20% tax    
 
     // Operacja asynchroniczna
-    public Task<decimal> CalculateSalaryTask(string name, decimal hours, decimal hourlyRate, CancellationToken cancellationToken = default)
+    public Task<decimal> CalculateSalaryTask(string name, decimal hours, decimal hourlyRate, CancellationToken cancellationToken = default, IProgress<int> progress = null)
     {
-        return Task.Run(() => CalculateSalary(name, hours, hourlyRate, cancellationToken));
+        return Task.Run(() => CalculateSalary(name, hours, hourlyRate, cancellationToken, progress));
     }
 
     public Task<decimal> CalculateTaxTask(string name, decimal salary, CancellationToken cancellationToken = default)
@@ -23,7 +24,10 @@ internal class TaxCalculator
 
 
     // Operacja synchroniczna
-    public decimal CalculateSalary(string name, decimal hours, decimal hourlyRate, CancellationToken cancellationToken = default)
+    public decimal CalculateSalary(string name, decimal hours, decimal hourlyRate, 
+        CancellationToken cancellationToken = default,
+        IProgress<int> progress = null
+        )
     {
         Console.WriteLine($"Calculating salary for {name} {hours}...".DumpThreadId());
 
@@ -36,8 +40,9 @@ internal class TaxCalculator
 
             cancellationToken.ThrowIfCancellationRequested();
 
+            // Console.Write("."); // UI
+            progress?.Report(i);
 
-            Console.Write(".");
             Thread.Sleep(Random.Shared.Next(300, 1000)); // Delay
         }
 

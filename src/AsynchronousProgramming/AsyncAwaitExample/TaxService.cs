@@ -38,9 +38,9 @@ internal class TaxService
         service.Send("john@domain.com", $"Tax: {tax}");
     }
 
-    public async Task CalculateAsync(CancellationToken cancellationToken = default)
+    public async Task CalculateAsync(CancellationToken cancellationToken = default, IProgress<int> progress = null)
     {
-        var salary = await calculator.CalculateSalaryTask("John1", 100, 10, cancellationToken);          
+        var salary = await calculator.CalculateSalaryTask("John1", 100, 10, cancellationToken, progress);          
         var tax = await calculator.CalculateTaxTask("John2", salary, cancellationToken);
         await service.SendTask("john@domain.com", $"Tax: {tax}");
     }

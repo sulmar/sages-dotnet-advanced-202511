@@ -17,11 +17,18 @@ CancellationTokenSource tokenSource = new CancellationTokenSource();
 
 var token = tokenSource.Token;
 
+// IProgress<int> progress = new Progress<int>(step => Console.Write($"# {step:P2}"));
+// IProgress<int> progress = new ColorConsoleProgress();
+
+ProgressBar progressBar1 = new ProgressBar();
+
+IProgress<int> progress = new MyProgress(progressBar1);
+
 // Operacje asynchroniczne
 
 try
 {
-    var t1 = taxService.CalculateAsync(token);
+    taxService.CalculateAsync(token, progress);
 
     Console.WriteLine("Press Esc to cancel");
 
@@ -36,13 +43,11 @@ try
             break;
         }
     }
-
 }
-catch(Exception e)
+catch (Exception e)
 {
     Console.WriteLine("Cancelled.");
 }
-
 
 
 Console.WriteLine("Press enter to continue...");
