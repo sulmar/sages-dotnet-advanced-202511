@@ -8,15 +8,20 @@ Console.WriteLine("Started".DumpThreadId());
 
 TaxCalculator calculator = new TaxCalculator();
 
-var tax1 = calculator.Calculate("John", 1000);
-var tax2 = calculator.Calculate("Kate", 2000);
-var total = tax1 + tax2;
+//var tax1 = calculator.Calculate("John", 1000);
+//var tax2 = calculator.Calculate("Kate", 2000);
+//var total = tax1 + tax2;
+
+var taxTask1 = calculator.CalculateTask("John", 1000);
+var taxTask2 = calculator.CalculateTask("Kate", 2000);
+
+var total = taxTask1.Result + taxTask2.Result; // czekamy na wynik i blokujemy glowny watek
 
 EmailMessageService service = new EmailMessageService();
 Task sendTask = Task.Run(() => service.Send("john@domain.com", $"Total Tax: {total}"));
 
 
-
+Console.WriteLine("Press enter to continue...");
 Console.ReadLine();
 
 //Task task1 = new Task(() => service.Send("john@domain.com"));

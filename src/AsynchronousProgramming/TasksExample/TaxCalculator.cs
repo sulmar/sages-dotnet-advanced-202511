@@ -10,6 +10,14 @@ internal class TaxCalculator
 {
     const decimal TaxRate = 0.2m; // 20% tax
 
+    // Operacja asynchroniczna
+    public Task<decimal> CalculateTask(string name, decimal salary)
+    {
+        return Task.Run(() => Calculate(name, salary));
+    }
+
+
+    // Operacja synchroniczna
     public decimal Calculate(string name, decimal salary)
     {
         Console.WriteLine($"Calculating for {name} {salary}...".DumpThreadId());
