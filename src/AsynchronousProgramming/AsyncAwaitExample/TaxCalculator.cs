@@ -11,23 +11,36 @@ internal class TaxCalculator
     const decimal TaxRate = 0.2m; // 20% tax    
 
     // Operacja asynchroniczna
-    public Task<decimal> CalculateSalaryTask(string name, decimal hours, decimal hourlyRate)
+    public Task<decimal> CalculateSalaryTask(string name, decimal hours, decimal hourlyRate, CancellationToken cancellationToken = default)
     {
-        return Task.Run(() => CalculateSalary(name, hours, hourlyRate));
+        return Task.Run(() => CalculateSalary(name, hours, hourlyRate, cancellationToken));
     }
 
-    public Task<decimal> CalculateTaxTask(string name, decimal salary)
+    public Task<decimal> CalculateTaxTask(string name, decimal salary, CancellationToken cancellationToken = default)
     {
-        return Task.Run(() => CalculateTax(name, salary));
+        return Task.Run(() => CalculateTax(name, salary, cancellationToken));
     }
 
 
     // Operacja synchroniczna
-    public decimal CalculateSalary(string name, decimal hours, decimal hourlyRate)
+    public decimal CalculateSalary(string name, decimal hours, decimal hourlyRate, CancellationToken cancellationToken = default)
     {
         Console.WriteLine($"Calculating salary for {name} {hours}...".DumpThreadId());
 
-        Thread.Sleep(Random.Shared.Next(3_000, 10_000)); // Delay
+        // Thread.Sleep(Random.Shared.Next(3_000, 10_000)); // Delay
+
+        for (int i = 0; i < 10; i++)
+        {
+            //if (cancellationToken.IsCancellationRequested)
+            //    throw new OperationCanceledException();
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+
+            Console.Write(".");
+            Thread.Sleep(Random.Shared.Next(300, 1000)); // Delay
+        }
+
 
         decimal salary = hours * hourlyRate;
 
@@ -37,8 +50,10 @@ internal class TaxCalculator
 
     }
 
-    public decimal CalculateTax(string name, decimal salary)
+    public decimal CalculateTax(string name, decimal salary, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         Console.WriteLine($"Calculating tax for {name} {salary}...".DumpThreadId());
 
         Thread.Sleep(Random.Shared.Next(3_000, 10_000)); // Delay
@@ -64,5 +79,25 @@ internal class TaxCalculator
         // dobra praktyka
         // return Task.FromResult(100m);
         return Task.FromResult(CalculateDiscount(tax));
+    }
+
+
+    // zla praktyka
+    public async void DoWork1Async()
+    {
+        await Task.Run(() => DoWork());
+    }
+
+    // dobra praktyka
+    public async Task DoWork2Async()
+    {
+        await Task.Run(() => DoWork());
+    }
+
+    public void DoWork()
+    {
+        Console.WriteLine("working...");
+
+        throw new Exception();
     }
 }

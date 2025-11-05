@@ -9,13 +9,15 @@ namespace AsyncAwaitExample;
 
 internal class EmailMessageService
 {
-    public Task SendTask(string to, string content)
+    public Task SendTask(string to, string content, CancellationToken cancellationToken = default)
     {
-        return Task.Run(()=>Send(to, content)); 
+        return Task.Run(()=>Send(to, content, cancellationToken)); 
     }
 
-    public void Send(string to, string content = "")
+    public void Send(string to, string content = "", CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         Stopwatch stopwatch = Stopwatch.StartNew();
 
         Console.WriteLine($"Sending message {content} to {to}...".DumpThreadId());
