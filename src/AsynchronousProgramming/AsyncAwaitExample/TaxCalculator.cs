@@ -13,7 +13,7 @@ internal class TaxCalculator
     // Operacja asynchroniczna
     public Task<decimal> CalculateSalaryTask(string name, decimal hours, decimal hourlyRate)
     {
-        return Task.Run(() => CalculateSalaryTask(name, hours, hourlyRate));
+        return Task.Run(() => CalculateSalary(name, hours, hourlyRate));
     }
 
     public Task<decimal> CalculateTaxTask(string name, decimal salary)
