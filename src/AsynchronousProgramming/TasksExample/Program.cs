@@ -8,17 +8,27 @@ Console.WriteLine("Started".DumpThreadId());
 
 TaxCalculator calculator = new TaxCalculator();
 
+// Operacje synchroniczne
 //var tax1 = calculator.Calculate("John", 1000);
 //var tax2 = calculator.Calculate("Kate", 2000);
 //var total = tax1 + tax2;
 
+// Operacje asynchroniczne
+//var taxTask1 = calculator.CalculateTask("John", 1000);
+//var taxTask2 = calculator.CalculateTask("Kate", 2000);
+//var total = taxTask1.Result + taxTask2.Result; // czekamy na wynik i blokujemy glowny watek
+
 var taxTask1 = calculator.CalculateTask("John", 1000);
 var taxTask2 = calculator.CalculateTask("Kate", 2000);
 
-var total = taxTask1.Result + taxTask2.Result; // czekamy na wynik i blokujemy glowny watek
+var totalTask = Task.WhenAll(taxTask1, taxTask2);
 
 EmailMessageService service = new EmailMessageService();
-Task sendTask = Task.Run(() => service.Send("john@domain.com", $"Total Tax: {total}"));
+
+totalTask.ContinueWith(
+    t => service.Send("john@domain.com", $"Total Tax: {taxTask1.Result + taxTask2.Result}"));
+
+// .Result + taxTask2.Result; // czekamy na wynik i blokujemy glowny watek
 
 
 Console.WriteLine("Press enter to continue...");

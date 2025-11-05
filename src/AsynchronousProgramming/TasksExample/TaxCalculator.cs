@@ -16,7 +16,6 @@ internal class TaxCalculator
         return Task.Run(() => Calculate(name, salary));
     }
 
-
     // Operacja synchroniczna
     public decimal Calculate(string name, decimal salary)
     {
