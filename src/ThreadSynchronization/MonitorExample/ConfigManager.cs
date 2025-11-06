@@ -4,6 +4,9 @@ internal class ConfigManager
 {
     private readonly Dictionary<string, object> settings = new Dictionary<string, object>();
 
+
+
+
     protected ConfigManager()
     {
 
@@ -27,16 +30,27 @@ internal class ConfigManager
         }
     }
 
+    private readonly object _syncLock = new object();
+
     public void Set(string key, object value)
-    {       
+    {
+        Monitor.Enter(_syncLock);
+
         if (settings.ContainsKey(key))
         {
+            Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId} set {key}");
+
             settings[key] = value;
         }
         else
         {
+            Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId} add {key}");
+
             settings.Add(key, value);
         }
+
+        // Monitor.Exit(_syncLock);    // zwalniamy blokade
+
     }
 
     public object Get(string key)

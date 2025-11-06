@@ -6,7 +6,16 @@ Console.WriteLine("Hello, Barier!");
 
 Console.WriteLine("Rozpoczecie aktualizacji...");
 
-UpdateService updateService = new UpdateService();
+int count = 10;
 
-new Thread(updateService.Machine1).Start();
-new Thread(updateService.Machine2).Start();
+UpdateService updateService = new UpdateService(count);
+
+
+var tasks = Enumerable.Range(1, count)
+    .Select(x => Task.Run(() => updateService.Machine($"machine-{x}")))
+    .ToArray();
+
+
+await Task.WhenAll(tasks);
+    
+

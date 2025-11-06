@@ -8,35 +8,29 @@ namespace BarierExample;
 
 internal class UpdateService
 {
+    private readonly Barrier barrier;
 
-    public void Machine1()
+    public UpdateService(int count)
     {
-        Console.WriteLine("Machine1: Aktualizacja Windows...");
-        Thread.Sleep(10_000);
-        Console.WriteLine("Machine1: Aktualizacja Windows. Zakonczono.");
-
-        Console.WriteLine("Machine1: Instalacja VS");
-        Thread.Sleep(5000);
-        Console.WriteLine("Machine1: Instalacja VS. Zakonczono");
-
-        Console.WriteLine("Machine1: Weryfikacja instalacji");
-        Thread.Sleep(5000);
-        Console.WriteLine("Machine1: Weryfikacja instalacji. Zakonczono.");
+        barrier = new Barrier(count);
     }
 
-
-    public void Machine2()
+    public void Machine(string name)
     {
-        Console.WriteLine("Machine2: Aktualizacja Windows...");
-        Thread.Sleep(1_000);
-        Console.WriteLine("Machine2: Aktualizacja Windows. Zakonczono.");
+        Console.WriteLine($"{name}: Aktualizacja Windows...");
+        Thread.Sleep(Random.Shared.Next(1000, 5000));
+        Console.WriteLine($"{name}: Aktualizacja Windows. Zakonczono.");
+        barrier.SignalAndWait();
 
-        Console.WriteLine("Machine2: Instalacja VS");
-        Thread.Sleep(2000);
-        Console.WriteLine("Machine2: Instalacja VS. Zakonczono");
+        Console.WriteLine($"{name}: Instalacja VS");
+        Thread.Sleep(Random.Shared.Next(1000, 5000));
+        Console.WriteLine($"{name}: Instalacja VS. Zakonczono");
+        barrier.SignalAndWait();
 
-        Console.WriteLine("Machine2: Weryfikacja instalacji");
-        Thread.Sleep(1000);
-        Console.WriteLine("Machine2: Weryfikacja instalacji. Zakonczono.");
+        Console.WriteLine($"{name}: Weryfikacja instalacji");
+        Thread.Sleep(Random.Shared.Next(1000, 5000));
+        Console.WriteLine($"{name}: Weryfikacja instalacji. Zakonczono.");
+        barrier.SignalAndWait();
     }
+    
 }
