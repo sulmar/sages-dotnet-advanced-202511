@@ -30,19 +30,17 @@ try
 {
     taxService.CalculateAsync(token, progress);
 
-    Console.WriteLine("Press Esc to cancel");
+    Console.WriteLine("Press Ctrl+C to cancel");
 
-    while (true)
+    Console.CancelKeyPress += (sender, e) =>
     {
-        var key = Console.ReadKey(intercept: true); // nie wypisuje klawisza
-        if (key.Key == ConsoleKey.Escape)
-        {
-            Console.WriteLine("Wykryto ESC");
-            tokenSource.Cancel(); // Wyslanie sygnalu z prosba o przerwanie zadan
+        Console.WriteLine("Stopping...");
+        e.Cancel = true;
 
-            break;
-        }
-    }
+        tokenSource.Cancel(); // Wyslanie sygnalu z prosba o natychmiastowe przerwanie zadan      
+
+        tokenSource.CancelAfter(2000); // Wyslanie sygnalu z prosba o przerwanie zadan po okreslonym czasie
+    };
 }
 catch (Exception e)
 {
