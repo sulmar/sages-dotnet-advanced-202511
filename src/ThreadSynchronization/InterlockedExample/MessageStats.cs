@@ -32,15 +32,15 @@ internal class MessageStats
         get
         {
             //  <-- t2
-            lock (_syncLock) //   // <-- t1
-            {
+            lock (_syncLock) //   // <-- t1   
+            {                                        // Monitor.Enter(_syncLock)
                 if (_instance == null)    
                 {
                     _instance = new MessageStats();
                 }
 
                 return _instance;
-            }
+            }                                        // Monitor.Exit(_syncLock)
         }
     }
 
