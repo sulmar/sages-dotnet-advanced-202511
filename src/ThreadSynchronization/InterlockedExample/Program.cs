@@ -9,7 +9,7 @@ Thread consumer = new Thread(Consumer);
 publisher.Start();
 consumer.Start();
 
-while(publisher.IsAlive || MessageStats.Instance.PendingCount > 0)
+while(consumer.IsAlive || MessageStats.Instance.PendingCount > 0)
 {
     Console.WriteLine($"Pending: {MessageStats.Instance.PendingCount} Processed: {MessageStats.Instance.ProcessedCount}");
 	Thread.Sleep(200);
@@ -17,7 +17,6 @@ while(publisher.IsAlive || MessageStats.Instance.PendingCount > 0)
 
 publisher.Join(); // czeka na zakonczenie watku 
 consumer.Join();
-
 
 Console.WriteLine("Press Enter to exit.");
 Console.ReadLine();
@@ -35,7 +34,7 @@ void Publisher()
 
 void Consumer()
 {
-	while(MessageStats.Instance.ProcessedCount < 1000)
+	while(MessageStats.Instance.ProcessedCount <= 1000)
 	{
 		if (MessageStats.Instance.PendingCount > 0)
 		{

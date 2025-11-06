@@ -9,13 +9,21 @@ namespace InterlockedExample;
 internal class MessageStats
 {
     public int ReadCount { get; private set; }
-    public int PendingCount { get; private set; }
-    public int ProcessedCount { get; private set; }
+
+    private int _pendingCount;
+    public int PendingCount => _pendingCount;
+
+    // back field
+    private int _processedCount;
+    public int ProcessedCount => _processedCount;
 
     private MessageStats()
     {
-        
+        Console.WriteLine("MessageStats initalized.");
     }
+
+
+    private static object _syncLock = new object();
 
     // Singleton Pattern
     private static MessageStats _instance;
@@ -23,28 +31,32 @@ internal class MessageStats
     {
         get
         {
-            if (_instance == null)
+            //  <-- t2
+            lock (_syncLock) //   // <-- t1
             {
-                _instance = new MessageStats();
+                if (_instance == null)    
+                {
+                    _instance = new MessageStats();
+                }
+
+                return _instance;
             }
-            
-            return _instance;
         }
     }
 
     public void IncrementPending()
     {
-        PendingCount++;
+        Interlocked.Increment(ref _pendingCount);
     }
 
     public void DecrementPending()
     {
-        PendingCount--;
+        Interlocked.Decrement(ref _pendingCount);
     }
 
     public void IncrementProcessedCount()
     {
-        ProcessedCount++;
+       Interlocked.Increment(ref _processedCount);
     }
 
 }
