@@ -109,6 +109,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncEnumerableExample", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeriodicTimerExample", "AsynchronousProgramming\PeriodicTimerExample\PeriodicTimerExample.csproj", "{2DFA8097-56E5-4100-96AE-BDF4AEF2D831}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Channels", "Channels", "{525FD554-A104-4B71-8B5F-8BB9ECF5D3F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackgroundServices", "BackgroundServices", "{AE7DD1DB-C5E5-4FE4-B51A-90CBC8ECA2CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundWorkerService", "BackgroundServices\BackgroundWorkerService\BackgroundWorkerService.csproj", "{EF5716C0-1BA8-43F7-B281-85EB2A604772}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -279,6 +285,10 @@ Global
 		{2DFA8097-56E5-4100-96AE-BDF4AEF2D831}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DFA8097-56E5-4100-96AE-BDF4AEF2D831}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DFA8097-56E5-4100-96AE-BDF4AEF2D831}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF5716C0-1BA8-43F7-B281-85EB2A604772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF5716C0-1BA8-43F7-B281-85EB2A604772}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF5716C0-1BA8-43F7-B281-85EB2A604772}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF5716C0-1BA8-43F7-B281-85EB2A604772}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -325,6 +335,7 @@ Global
 		{CE803C78-B9D8-4364-B20F-587C6D1248E3} = {CE7B71FA-9986-4876-B43F-71FA94C55C99}
 		{5A651AAC-9F53-4925-B491-02D7CE1B86A5} = {E3844A4A-A013-4A54-9FB3-F13B2B126DD0}
 		{2DFA8097-56E5-4100-96AE-BDF4AEF2D831} = {E3844A4A-A013-4A54-9FB3-F13B2B126DD0}
+		{EF5716C0-1BA8-43F7-B281-85EB2A604772} = {AE7DD1DB-C5E5-4FE4-B51A-90CBC8ECA2CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2E7DE6E-B21A-4995-A942-00FB34E40D6F}
