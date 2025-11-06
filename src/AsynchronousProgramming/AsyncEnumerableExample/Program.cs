@@ -3,12 +3,9 @@ using AsyncEnumerableExample;
 
 Console.WriteLine("Hello, Async Enumerable!".DumpThreadId());
 
+Service service = new Service();
 
-foreach(var weekday in Helper.GetWeekdays())
-{
-    Task.Run(()=> Console.WriteLine(weekday.DumpThreadId()));
-}
-
+service.ProcessWeekdaysAsync2();
 
 Console.WriteLine("Press Enter to exit.".DumpThreadId());
 Console.ReadLine();
