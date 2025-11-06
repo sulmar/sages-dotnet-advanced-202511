@@ -1,24 +1,26 @@
 
+using System.Threading.Channels;
+
 namespace ChannelWorkerService;
 
-
-
-public class OcrProcessingService : BackgroundService
+public class OcrJobPublisherService : BackgroundService
 {
-    private readonly ILogger<OcrProcessingService> _logger;
+    private readonly ILogger<OcrJobPublisherService> _logger;
+    private readonly Channel<string> _channel;
 
     private FileSystemWatcher _watcher;
 
     private readonly string _path = Path.Combine(AppContext.BaseDirectory, "input");
 
-    public OcrProcessingService(ILogger<OcrProcessingService> logger)
+    public OcrJobPublisherService(ILogger<OcrJobPublisherService> logger, Channel<string> channel)
     {
         this._logger = logger;
+        _channel = channel;
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("OcrProcessingService started.");
+        _logger.LogInformation("OcrJobPublisherService started.");
 
         if (!Directory.Exists(_path)) 
             Directory.CreateDirectory(_path);
@@ -36,11 +38,9 @@ public class OcrProcessingService : BackgroundService
             _logger.LogInformation("Wykryto nowy plik {FullPath}", e.FullPath);
 
             // Czekamy na zakonczenie zapisu
-            await Task.Delay(3000);
+            await Task.Delay(3000);          
 
-            // TODO: Uzyj kanalu
-            Console.WriteLine("OCR...");
-            await Task.Delay(30_000);
+            await _channel.Writer.WriteAsync(e.FullPath); // Zapis do kanalu
         };
 
         _logger.LogInformation("Monitorowanie folderu: {path}", _path);
@@ -48,4 +48,3 @@ public class OcrProcessingService : BackgroundService
         return Task.CompletedTask;
     }
 }
-
