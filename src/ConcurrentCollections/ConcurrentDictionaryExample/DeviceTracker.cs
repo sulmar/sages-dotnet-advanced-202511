@@ -12,13 +12,29 @@ public class DeviceStatus
     public string DeviceId { get; set; }
     public double BatteryLevel { get; set; }
 
-    public override string ToString() => $"(ID: {DeviceId}) {BatteryLevel / 100:P2} ";    
+    public override string ToString() => $"(ID: {DeviceId}) {BatteryLevel / 100:P2} ";
+
+    public DeviceStatus MergeWith(DeviceStatus other)
+    {
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.ForegroundColor = ConsoleColor.Red;
+
+        var deviceStatus = new DeviceStatus
+        {
+            DeviceId = other.DeviceId,
+            BatteryLevel = Math.Max(this.BatteryLevel, other.BatteryLevel), // Merge
+        };
+
+        Console.ResetColor();
+
+        return deviceStatus;
+    }
 }
 
 
 public class DeviceTracker
 {
-    private readonly Dictionary<string, DeviceStatus> _devicesByImei = new(); // ❌ niebezpieczny słownik
+    private readonly ConcurrentDictionary<string, DeviceStatus> _devicesByImei = new(); // ❌ niebezpieczny słownik
 
     public bool TryGetDeviceStatus(string imei, out DeviceStatus status)
     {
@@ -29,15 +45,10 @@ public class DeviceTracker
     public void UpdateDeviceStatus(string imei, DeviceStatus status)
     {
         // równoczesne wywołania mogą spowodować wyjątek
-        if (_devicesByImei.ContainsKey(imei))
-        {
-            _devicesByImei[imei] = status;
-        }
-        else
-        {
-            _devicesByImei.Add(imei, status);
+            _devicesByImei.AddOrUpdate(imei, status, 
+                (key, existing) => status.MergeWith(existing)); // Funkcja ktora jest uruchamiania gdy nastapi konflikt
 
-        }
+       // }
 
         ForceDictionaryEnumeration();
 
@@ -56,13 +67,13 @@ public class DeviceTracker
     }
 
 
-    public void SimulateParallelUpdates()
+    public void SimulateParallelUpdates(int count)
     {
-        string[] imeis = { "351111111111111", "352222222222222", "353333333333333" };
+        string[] imeis = Enumerable.Range(1, count).Select(i => $"00000000{i}" ).ToArray();
 
         Parallel.ForEach(imeis, imei =>
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 var normalized = Random.Shared.NextDouble();         // 0.0 – 1.0
                 var batteryLevel = 50 + normalized * 50;             // 50.0 – 100.0
