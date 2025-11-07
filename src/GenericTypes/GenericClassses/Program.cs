@@ -20,6 +20,6 @@ var accounts = new List<Account>
 
 InMemoryCustomerRepository repository = new InMemoryCustomerRepository(customers);
 
-var customer = repository.GetCustomer(1);
+var customer = repository.Get(1);
 
 Console.WriteLine(customer);
