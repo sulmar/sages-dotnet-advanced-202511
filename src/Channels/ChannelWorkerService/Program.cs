@@ -18,7 +18,7 @@ var options = new BoundedChannelOptions(10)
 builder.Services.AddSingleton(Channel.CreateBounded<string>(options)); // kanal z limitem ilosci wiadomosci
 
 builder.Services.AddHostedService<OcrJobPublisherService>();
-builder.Services.AddHostedService<OcrJobConscumerService>();
+builder.Services.AddHostedService<OcrJobConsumerService>();
 
 var host = builder.Build();
 host.Run();

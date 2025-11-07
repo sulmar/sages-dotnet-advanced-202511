@@ -3,12 +3,12 @@ using System.Threading.Channels;
 
 namespace ChannelWorkerService;
 
-public class OcrJobConscumerService : BackgroundService
+public class OcrJobConsumerService : BackgroundService
 {
-    private readonly ILogger<OcrJobConscumerService> _logger;
+    private readonly ILogger<OcrJobConsumerService> _logger;
     private readonly Channel<string> _channel;
 
-    public OcrJobConscumerService(ILogger<OcrJobConscumerService> logger, Channel<string> channel)
+    public OcrJobConsumerService(ILogger<OcrJobConsumerService> logger, Channel<string> channel)
     {
         this._logger = logger;
         this._channel = channel;
