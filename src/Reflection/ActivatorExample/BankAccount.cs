@@ -58,6 +58,7 @@ public class CommandInvoker
     }
 }
 
+// Wzorzec Command
 public interface ICommand
 {
     void Execute();

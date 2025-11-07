@@ -2,6 +2,16 @@
 
 Console.WriteLine("Hello, Reflection Activator!");
 
+Printer printer = new Printer();
+printer.Print("Hello World!", 3);
+printer.Print("Hello Poland!");
+
+Scanner scanner = new Scanner();
+scanner.Scan("scan1.png");
+
+
+return;
+
 
 BankAccount account = new BankAccount(1000); // Początkowy stan konta 1000
 CommandInvoker invoker = new CommandInvoker(account);
