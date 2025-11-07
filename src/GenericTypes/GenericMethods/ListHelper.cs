@@ -41,8 +41,7 @@ public interface IName
 internal class ListHelper
 {
     // Szablon metody (Metoda generyczna)
-    public static void Dump<TItem>(IEnumerable<TItem> collection)
-        where TItem : Base
+    public static void Dump<TItem>(IEnumerable<TItem> collection)        
     {
         foreach (TItem item in collection)
         {
