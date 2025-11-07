@@ -31,6 +31,7 @@ internal class UpdateService
         Thread.Sleep(Random.Shared.Next(1000, 5000));
         Console.WriteLine($"{name}: Weryfikacja instalacji. Zakonczono.");
         barrier.SignalAndWait();
+
     }
     
 }

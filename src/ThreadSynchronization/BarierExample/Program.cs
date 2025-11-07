@@ -8,7 +8,7 @@ Console.WriteLine("Rozpoczecie aktualizacji...");
 
 int count = 10;
 
-UpdateService updateService = new UpdateService(count);
+UpdateService updateService = new UpdateService(3);
 
 
 var tasks = Enumerable.Range(1, count)
