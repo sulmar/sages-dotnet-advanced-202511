@@ -3,11 +3,20 @@
 Console.WriteLine("Hello, Reflection Activator!");
 
 Printer printer = new Printer();
-printer.Print("Hello World!", 3);
-printer.Print("Hello Poland!");
-
 Scanner scanner = new Scanner();
-scanner.Scan("scan1.png");
+
+Queue<ICommand> commands = new Queue<ICommand>();
+
+commands.Enqueue(new PrintCommand("Hello World!", 3));
+commands.Enqueue(new PrintCommand("Hello Poland!"));
+commands.Enqueue(new ScanCommand("scan1.png"));
+
+while(commands.Count > 0)
+{
+    ICommand command = commands.Dequeue();
+
+    command.Execute();
+}
 
 
 return;
