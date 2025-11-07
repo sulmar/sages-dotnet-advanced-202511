@@ -12,7 +12,7 @@ internal class Base : INotifyPropertyChanged
     // Przykład atrybutu na poziomie parametru metody
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
-        Console.WriteLine(propertyName);
+     
     }
 }
 

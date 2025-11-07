@@ -30,7 +30,7 @@ var output = builder
     .GenerateConstructors()
     .GenerateMethods()
     .GenerateEvents()
-     .GenerateFooter()
+    .GenerateFooter()
     .Build();
 
 Console.WriteLine(output);
