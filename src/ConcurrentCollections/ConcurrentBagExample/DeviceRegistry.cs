@@ -15,7 +15,7 @@ public class Device
 
 public class DeviceRegistry
 {
-    private readonly List<Device> _activeDevices = new(); // ❌ NIEBEZPIECZNA współbieżnie
+    private readonly ConcurrentBag<Device> _activeDevices = new(); // ❌ NIEBEZPIECZNA współbieżnie
 
     private readonly Device[] _discoveredDevices = new[]
     {
