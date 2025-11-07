@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AttributeBasedProgramming;
 
@@ -12,13 +9,30 @@ internal class ExporterToCsv
     // John;44545;30
     // John;44545;30
 
-    private StringBuilder _builder = new StringBuilder();
+    private readonly StringBuilder _builder = new StringBuilder();
 
     private void AddHeader<T>()
     {
         Type type = typeof(T);
 
+        // Pobieramy wszystkie wlasciwosci
         var properties = type.GetProperties();
+
+        // Pobieramy wlasciwosci z atrybutem [Ignore]
+        var ignoreProperties = new List<PropertyInfo>();
+
+        foreach (var property in properties)
+        {
+            if (Attribute.IsDefined(property, typeof(IgnoreAttribute)))
+            {
+                Console.WriteLine($"{property} posiada IgnoreAttribute");
+
+                ignoreProperties.Add(property);
+            }
+        }
+
+        // Pomijamy ignorowane wlasciwosci za pomoca roznicy zbiorow
+        properties = properties.Except(ignoreProperties).ToArray();
 
         var header = string.Join(";", properties.Select(p => p.Name).ToArray());
 
@@ -32,9 +46,27 @@ internal class ExporterToCsv
 
         Type type = item.GetType();
 
+        // Pobieramy wszystkie wlasciwosci
         var properties = type.GetProperties();
 
-        var row = string.Join(";", properties.Select(p => p.GetValue(item)).ToArray());
+        // Pobieramy wlasciwosci z atrybutem [Ignore]
+        var ignoreProperties = new List<PropertyInfo>();
+
+        foreach (var property in properties)
+        {
+            if (Attribute.IsDefined(property, typeof(IgnoreAttribute)))
+            {
+                Console.WriteLine($"{property} posiada IgnoreAttribute");
+
+                ignoreProperties.Add(property);
+            }
+        }
+
+        // Pomijamy ignorowane wlasciwosci za pomoca roznicy zbiorow
+        properties = properties.Except(ignoreProperties).ToArray();
+
+
+        var row = string.Join(";", properties.Select(p => p.GetValue(item)));
 
         _builder.AppendLine(row);
 

@@ -16,11 +16,3 @@ Console.WriteLine(output);
 
 
 
-
-// TODO: odczytaj atrybut na poziomie właściwości
-
-// TODO: Odczytaj atrybut na poziomie typu
-
-// TODO: Odczytaj atrybut na poziomie metod
-
-// TODO: Odczytaj atrybut na poziomie właściwości

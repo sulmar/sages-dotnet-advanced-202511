@@ -24,6 +24,8 @@ internal class Customer : Base
     public string LastName { get; set; }
 
     private string pesel;
+
+    [Ignore]
     public string Pesel
     {
         get
