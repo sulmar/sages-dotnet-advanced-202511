@@ -18,7 +18,7 @@ public class OcrDocument
 
 public class OcrService
 {
-    private readonly Queue<OcrDocument> _queue = new(); // ❌ NIEBEZPIECZNA
+    private readonly ConcurrentQueue<OcrDocument> _queue = new(); // ❌ NIEBEZPIECZNA
 
     public void Submit(OcrDocument document)
     {
