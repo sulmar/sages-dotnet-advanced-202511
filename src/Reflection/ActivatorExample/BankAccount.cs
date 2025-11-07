@@ -28,19 +28,24 @@ public class BankAccount
     }
 }
 
+// Wzorzec projektowy Fabryka
 public class CommandFactory(BankAccount _account)
 {
     public ICommand Create(string commandName, decimal amount)
     {
-        switch (commandName)
-        {
-            case "Deposit":
-                return new DepositCommand(_account, amount);
-            case "Withdraw":
-                return new WithdrawCommand(_account, amount);
-            default:
-                throw new NotSupportedException($"Command '{commandName}' not found.");
-        }
+        var @namespace = typeof(ICommand).Namespace;
+
+        var type = Type.GetType($"{@namespace}.{commandName}Command");
+
+        if (type == null)
+            throw new NotSupportedException($"Command '{commandName}' not found.");
+
+        if (!typeof(ICommand).IsAssignableFrom(type))
+            throw new ArgumentException($"{commandName} nie implementuje ICommand");
+        
+        ICommand command = (ICommand) Activator.CreateInstance(type, _account, amount);
+           
+        return command;
     }
 }
 
@@ -106,5 +111,20 @@ public class WithdrawCommand : ICommand
         {
             Console.WriteLine("Insufficient funds for withdrawal.");
         }
+    }
+}
+
+public class CheckBalanceCommand : ICommand
+{
+    private readonly BankAccount account;
+
+    public CheckBalanceCommand(BankAccount account)
+    {
+        this.account = account;
+    }
+
+    public void Execute()
+    {
+        throw new NotImplementedException();
     }
 }
