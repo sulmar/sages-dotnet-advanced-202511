@@ -16,6 +16,7 @@ internal class Base : INotifyPropertyChanged
     }
 }
 
+[Icon("customer.png")]
 internal class Customer : Base
 {
     [Required, MinLength(3, ErrorMessage = "Imię zbyt krótkie")]
@@ -25,6 +26,7 @@ internal class Customer : Base
 
     private string pesel;
 
+    
     [Ignore]
     public string Pesel
     {
