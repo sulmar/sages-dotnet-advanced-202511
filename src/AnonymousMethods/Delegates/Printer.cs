@@ -11,6 +11,11 @@ public class PrintedEventArgs : EventArgs
     }
 }
 
+// Action i Func to delegaty
+// Action<T1, T2>
+// Roznica pomiedzy Action i Func polega na tym, ze Action zwraca void, a Func zwraca wskazana wartosc <TResult>
+// Func<T1, T2, TResult> 
+
 public class Printer
 {
     public Action<string> Log;  // void Method()
