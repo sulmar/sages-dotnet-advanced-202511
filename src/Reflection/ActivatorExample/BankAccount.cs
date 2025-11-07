@@ -28,33 +28,39 @@ public class BankAccount
     }
 }
 
+public class CommandFactory(BankAccount _account)
+{
+    public ICommand Create(string commandName, decimal amount)
+    {
+        switch (commandName)
+        {
+            case "Deposit":
+                return new DepositCommand(_account, amount);
+            case "Withdraw":
+                return new WithdrawCommand(_account, amount);
+            default:
+                throw new NotSupportedException($"Command '{commandName}' not found.");
+        }
+    }
+}
+
 public class CommandInvoker
 {
     private readonly BankAccount _account;
+    private readonly CommandFactory factory;
 
-    public CommandInvoker(BankAccount account)
+    public CommandInvoker(BankAccount account, CommandFactory factory)
     {
         _account = account;
+        this.factory = factory;
     }
 
     public void ExecuteCommand(string commandName, decimal amount)
     {
-        ICommand command = null;
+        ICommand command = factory.Create(commandName, amount);
 
-        if (commandName == "Deposit")
-        {
-            command = new DepositCommand(_account, amount);
-            command.Execute();
-        }
-        else if (commandName == "Withdraw")
-        {
-            command = new DepositCommand(_account, amount);
-            command.Execute();
-        }        
-        else
-        {
-            Console.WriteLine($"Command '{commandName}' not found.");
-        }
+        command.Execute();
+
     }
 }
 

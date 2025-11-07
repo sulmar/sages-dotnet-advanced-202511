@@ -18,12 +18,8 @@ while(commands.Count > 0)
     command.Execute();
 }
 
-
-return;
-
-
 BankAccount account = new BankAccount(1000); // Początkowy stan konta 1000
-CommandInvoker invoker = new CommandInvoker(account);
+CommandInvoker invoker = new CommandInvoker(account, new CommandFactory(account));
 
 // Wykonanie poleceń
 invoker.ExecuteCommand("Deposit", 100); // Wpłata 100
