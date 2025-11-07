@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AttributeBasedProgramming;
 
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 internal class IgnoreAttribute : Attribute
 {
 }
